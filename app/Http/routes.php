@@ -33,3 +33,14 @@ Route::group(['prefix'=>'articles'],function(){
 		'as'		=>		'articlesView'
 		]);
 });
+
+
+
+/*========================
+BLOG
+========================*/
+
+Route::group(['prefix'=>'admin'],function(){
+
+	Route::resource('users','UsersController');
+});

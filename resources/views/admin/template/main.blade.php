@@ -9,6 +9,7 @@
 <body>
 <div id="wrapper">
 	@include('admin.template.partials.nav')
+	<h1>@yield('title')</h1>
 	<section>
 		@yield('content')
 	</section>
