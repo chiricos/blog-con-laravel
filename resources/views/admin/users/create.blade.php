@@ -3,23 +3,25 @@
 @section('title','Crear usuario')
 
 @section('content')
+	
+	@include('admin.template.partials.errors')
 
 	<div class="panel panel-default"> 
 	{!! Form::open(['route'=>'admin.users.store','method'=>'POST']) !!}
 
 		<div class="form-group">
 			{!! Form::label('name','Nombre') !!}
-			{!! Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre','required']) !!}
+			{!! Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
 		</div>
 
 		<div class="form-group">
 			{!! Form::label('email','Correo electronico') !!}
-			{!! Form::email('email',null,['class'=>'form-control','placeholder'=>'Correo electronico','required']) !!}
+			{!! Form::email('email',null,['class'=>'form-control','placeholder'=>'Correo electronico']) !!}
 		</div>
 
 		<div class="form-group">
 			{!! Form::label('password','Contraseña') !!}
-			{!! Form::password('password',['class'=>'form-control','placeholder'=>'Correo electronico','required']) !!}
+			{!! Form::password('password',['class'=>'form-control','placeholder'=>'Correo electronico']) !!}
 		</div>
 
 		<div class="form-group">

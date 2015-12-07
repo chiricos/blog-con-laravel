@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\User;
-use Laracasts\Flash\Flash;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\CategoryRequest;
+use App\Category;
 
-class UsersController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +18,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id','ASC')->paginate(5);
-        return view('admin.users.index')->with('users',$users);
+        $categories = Category::orderBy('id','ASC')->paginate(5);
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -30,8 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
-
+        return view('admin.categories.create');
     }
 
     /**
@@ -40,14 +38,13 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(CategoryRequest $request)
     {
-        $user = new User($request->all());
-        $user->password=bcrypt($request->password);
-        $user->save();
-        return redirect()->route('admin.users.index')->with('message','El usuario '.$user->name.' se ha registrado');
-    }
+        $category =  new Category($request->all());
+        $category->save();
 
+        return redirect()->route('admin.categories.index')->with('message','La categoria '.$category->name.' fue creada');
+    }
     /**
      * Display the specified resource.
      *
@@ -67,8 +64,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('admin.users.edit')->with('user',$user);
+        $category = Category::find($id);
+        return view('admin.categories.edit')->with('category',$category);  
     }
 
     /**
@@ -80,13 +77,10 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        /*$user->name = $request->name;
-        $user->email = $request->email;
-        $user->type =$request->type;*/
-        $user->fill($request->all());
-        $user->save();
-        return redirect()->back()->with('message','El usuario '.$user->name.' fue actualizado');
+        $category = Category::find($id);
+        $category->fill($request->all());
+        $category->save();
+        return redirect()->back()->with('message','El usuario '.$category->name.' fue actualizado');
     }
 
     /**
@@ -97,9 +91,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user=User::find($id);
-        $user->delete();
-        return redirect()->route('admin.users.index')->with('message_error','El usuario '.$user->name.' se ha eliminado');
-
+        $category = Category::find($id);
+        $category->delete();
+        return redirect()->back()->with('message','La categoria '.$category->id.' fue eliminada');
     }
 }

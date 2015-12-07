@@ -14,22 +14,30 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Inicio</a></li>
+        <li><a href="{{route('admin.auth.login')}}">Inicio</a></li>
         <li><a href="{{route('admin.users.index')}}">Usuarios</a></li>
-        <li><a href="#">Categorias</a></li>
+        <li><a href="{{route('admin.categories.index')}}">Categorias</a></li>
         <li><a href="#">Articulos</a></li>
         <li><a href="#">Imagenes</a></li>
         <li><a href="#">Tags</a></li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      
+      @if(Auth::user())
+       <ul class="nav navbar-nav navbar-right">
+       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Buscar</button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-       
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{route('admin.auth.logout')}}">Salir</a></li>
+          </ul>
+        </li>
       </ul>
+      @endif
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
