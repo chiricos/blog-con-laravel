@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use Laracasts\Flash\Flash;
 
 class UsersController extends Controller
 {
@@ -43,7 +44,7 @@ class UsersController extends Controller
         $user = new User($request->all());
         $user->password=bcrypt($request->password);
         $user->save();
-        dd('usuario creado');
+        return redirect()->route('admin.users.index')->with('message','El usuario '.$user->name.' se ha registrado');
     }
 
     /**
@@ -88,6 +89,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::find($id);
+        $user->delete();
+        return redirect()->route('admin.users.index')->with('message_error','El usuario '.$user->name.' se ha eliminado');
+
     }
 }

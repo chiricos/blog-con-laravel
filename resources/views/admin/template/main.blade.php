@@ -10,6 +10,7 @@
 <div id="wrapper">
 	@include('admin.template.partials.nav')
 	<h1>@yield('title')</h1>
+    @include('admin.template.partials.alerts')
 	<section>
 		@yield('content')
 	</section>
